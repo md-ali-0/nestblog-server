@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { CategoryModule } from './category/category.module';
+import { CategoryService } from './category/category.service';
 import configuration from './config/configuration';
 import { UsersModule } from './users/users.module';
 
@@ -15,20 +17,26 @@ import { UsersModule } from './users/users.module';
       isGlobal: true,
       load: [configuration],
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: '103.161.46.178',
-      port: 3306,
-      username: 'codexeon_kotha',
-      password: 'ADokxv4R98WepzplN6',
-      database: 'codexeon_kotha',
-      entities: [],
-      synchronize: true,
-      autoLoadEntities: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('dbConfig.dbHost'),
+        port: configService.get<number>('dbConfig.dbPort'),
+        username: configService.get<string>('dbConfig.dbUser'),
+        password: configService.get<string>('dbConfig.dbPass'),
+        database: configService.get<string>('dbConfig.dbName'),
+        entities: [],
+        synchronize: true,
+        autoLoadEntities: true,
+      }),
+      inject: [ConfigService],
     }),
     UsersModule,
+    CategoryModule,
+    CategoryModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CategoryService],
 })
 export class AppModule {}

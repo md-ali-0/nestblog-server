@@ -1,9 +1,9 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('dbConfig', () => ({
-  dBHost: process.env.DB_HOST || 'localhost',
+  dbHost: process.env.DB_HOST || 'localhost',
   dbPort: parseInt(process.env.DB_PORT, 10) || 3306,
-  dbUsername: process.env.DB_USERNAME || 'root',
-  dbPassword: process.env.DB_PASSWORD || '',
-  dbName: process.env.DB_DATABASE || 'my_database',
+  dbUser: process.env.DB_USER || 'root',
+  dbPass: process.env.DB_PASS || '',
+  dbName: process.env.DB_NAME || 'my_database',
 }));
