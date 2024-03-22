@@ -9,4 +9,8 @@ export class AppController {
   getRunning(): string {
     return this.appService.getRunning();
   }
+  @Get('statistics')
+  getStatistics(): Promise<object> {
+    return this.appService.getStatus();
+  }
 }

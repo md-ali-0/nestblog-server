@@ -16,7 +16,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ default: 'https://placehold.co/400x400/green/white.png' })
+  @Column({ default: 'https://source.unsplash.com/random/?avatar,girl' })
   image: string;
 
   @Column({ enum: ['admin', 'user'], default: 'user' })
