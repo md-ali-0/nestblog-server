@@ -1,5 +1,12 @@
 {
   "version": 2,
+  "env": {
+    "DB_HOST": "103.161.46.178",
+    "DB_NAME": "codexeon_kotha",
+    "DB_USER": "codexeon_kotha",
+    "DB_PASS": "ADokxv4R98WepzplN6",
+    "DB_PORT": "3306"
+  },
   "builds": [
     {
       "src": "src/main.ts",
